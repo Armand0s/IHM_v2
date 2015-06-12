@@ -124,13 +124,18 @@ public class Controleur {
      */
     public void supprimerEvenement() {
        
-        if ((planningUI.getCurrentEvt().getIntitule() != "No evenement")
+        /*if ((planningUI.getCurrentEvt().getIntitule() != "No Evenement Selected")
                 && (planningUI.getCurrentEvt().getDateJour() != planningUI.calendar_currentDate.get(Calendar.DAY_OF_MONTH))
                 && (planningUI.getCurrentEvt().getDateMois() != planningUI.intToMonths(planningUI.calendar_currentDate.get(Calendar.DAY_OF_MONTH)))
-                && (planningUI.getCurrentEvt().getDateAnnee() != planningUI.calendar_currentDate.get(Calendar.YEAR))) {
+                && (planningUI.getCurrentEvt().getDateAnnee() != planningUI.calendar_currentDate.get(Calendar.YEAR))) {*/
        nf.removeEvenement(planningUI.getCurrentEvt());
        planningUI.retirerEvt(planningUI.getCurrentEvt());
-        }
+       planningUI.setCurrentEvt(planningUI.getDefaultEvt());
+       planningUI.uncheckDelete();
+       planningUI.setValuesList(planningUI.getCurrentEvt());
+       //Bug graphique
+       
+        //}
     }
     
     /**
@@ -138,7 +143,7 @@ public class Controleur {
      */
     public void ajouterParticipantEvenement() {
     
-       /** Projet **/
+       // Fait directement dans le planning
            
     }
 
@@ -147,7 +152,7 @@ public class Controleur {
      */
     public void retirerParticipantEvenement() {
     
-       /** Projet **/
+       // En cours
            
     }
     
