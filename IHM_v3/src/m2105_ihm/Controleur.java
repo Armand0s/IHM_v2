@@ -151,9 +151,12 @@ public class Controleur {
     /**
      * Retire un participant d'un événement
      */
-    public void retirerParticipantEvenement() {
+    public void retirerParticipantEvenement(Contact c) {
     
-       // En cours
+       if (boiteUI.afficherConfirmation(fenetre,c)) {
+
+        planningUI.getCurrentEvt().removeParticipant(c);
+        }
            
     }
     
