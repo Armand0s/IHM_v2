@@ -46,6 +46,7 @@ public class Controleur {
     public Controleur() {
         initUI();
         initContent();
+        planningUI.setValuesList(planningUI.getCurrentEvt());
     }
     
     /**
