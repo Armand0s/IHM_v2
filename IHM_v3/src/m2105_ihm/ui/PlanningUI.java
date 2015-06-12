@@ -321,7 +321,7 @@ public boolean trieEvenement() {
 
         panel_listEvt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        label_evtASuivre.setText("Evenements à suivre :");
+        label_evtASuivre.setText("Evenements suivants la date selectionnée:");
 
         list_Evt.setLayout(new java.awt.GridLayout(100, 1));
         jScrollPane1.setViewportView(list_Evt);
@@ -330,18 +330,17 @@ public boolean trieEvenement() {
         panel_listEvt.setLayout(panel_listEvtLayout);
         panel_listEvtLayout.setHorizontalGroup(
             panel_listEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(panel_listEvtLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
                 .addComponent(label_evtASuivre)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         panel_listEvtLayout.setVerticalGroup(
             panel_listEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_listEvtLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(label_evtASuivre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -359,7 +358,7 @@ public boolean trieEvenement() {
                 .addGroup(PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panel_calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panel_listEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(1, 1, 1))
+                .addContainerGap())
         );
         PanelPlanningLayout.setVerticalGroup(
             PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,11 +412,6 @@ public boolean trieEvenement() {
             annee[i-1965] = Integer.toString(i);
         }
         combo_Annee.setModel(new javax.swing.DefaultComboBoxModel(annee));
-        combo_Annee.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_AnneeActionPerformed(evt);
-            }
-        });
 
         text_nomEvt.setText("Nom Evt");
 
@@ -475,46 +469,48 @@ public boolean trieEvenement() {
         panel_infoEvtLayout.setHorizontalGroup(
             panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_infoEvtLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonAnnuler)
-                        .addGap(2, 2, 2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonValider))
-                    .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(labal_dateEvt))
-                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(button_addParticipant, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                        .addComponent(label_mois)
-                                        .addGap(43, 43, 43)
-                                        .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                        .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(labal_dateEvt))
+                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(button_addParticipant, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                            .addComponent(label_annee)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                            .addComponent(label_jour)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(text_nomEvt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                            .addGap(57, 57, 57)
-                            .addComponent(label_participants))
-                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                            .addGap(43, 43, 43)
-                            .addComponent(label_nomEvt))
-                        .addComponent(checkDelete)
-                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                            .addGap(44, 44, 44)
-                            .addComponent(buttonDelete))))
+                                            .addComponent(label_mois)
+                                            .addGap(43, 43, 43)
+                                            .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                                .addComponent(label_annee)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                                .addComponent(label_jour)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(text_nomEvt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(label_participants))
+                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(label_nomEvt))
+                            .addComponent(checkDelete)
+                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(buttonDelete)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_infoEvtLayout.setVerticalGroup(
@@ -573,7 +569,7 @@ public boolean trieEvenement() {
                 .addComponent(panel_currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_infoEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(179, 179, 179))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -616,20 +612,15 @@ public boolean trieEvenement() {
         setValuesParticipants(currentEvt);
     }//GEN-LAST:event_button_addParticipantActionPerformed
 
-    private void combo_AnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_AnneeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combo_AnneeActionPerformed
-
     private void checkDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDeleteActionPerformed
-       buttonDelete.setEnabled(checkDelete.isSelected());
-
+        buttonDelete.setEnabled(checkDelete.isSelected());
     }//GEN-LAST:event_checkDeleteActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
-        controleur.supprimerEvenement();
+       controleur.supprimerEvenement();
     }//GEN-LAST:event_buttonDeleteActionPerformed
-
-
+          
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPlanning;
     private javax.swing.JButton buttonAnnuler;
