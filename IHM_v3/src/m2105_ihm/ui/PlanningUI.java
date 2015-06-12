@@ -191,6 +191,7 @@ public boolean trieEvenement() {
         
         
         panel_listParticipants.removeAll();
+        
         participants_JBu.clear();
         
 
@@ -242,6 +243,8 @@ public boolean trieEvenement() {
         for (JButton jb : participants_JBu) {
             panel_listParticipants.add(jb);
         }
+        panel_listParticipants.validate();
+        panel_listParticipants.repaint();
         return true;
     }
         /*
@@ -252,6 +255,7 @@ public boolean trieEvenement() {
 
             trieEvenement();
             list_Evt.removeAll();
+            
             next_Evt_Evt.clear();
             next_Evt_JBu.clear();
         
@@ -291,6 +295,8 @@ public boolean trieEvenement() {
         });
             
             list_Evt.add(next_Evt_JBu.get(i));
+            list_Evt.validate();
+            list_Evt.repaint();
         }
         return true;
     }
