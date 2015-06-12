@@ -96,7 +96,7 @@ public class DialogCreerEvtUI extends JFrame {
         //////////////////////
         
         corps.add(new JLabel("Jour"));
-        for (int i = 1; i< 31; i++) {
+        for (int i = 1; i<= 31; i++) {
             comboJour.addItem(Integer.toString(i));
         }
         corps.add(comboJour);
