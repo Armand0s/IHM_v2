@@ -202,25 +202,37 @@ public boolean trieEvenement() {
             jb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlanningUI.this.controleur.retirerParticipantEvenement(currentEvt.getParticipants()[(
+                if (PlanningUI.this.controleur.retirerParticipantEvenement(currentEvt.getParticipants()[(
                                 participants_JBu.indexOf(e.getSource()
                                 )
-                            )]);
+                            )])) {
+                    System.out.println("blbl");
+                    participants_JBu.remove(e.getSource());
+                            /*panel_listParticipants.removeAll();
+                            participants_JBu.clear();*/
+                            setValuesParticipants(event);
+                }
             }
         });
             jb.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent evt) {
                 jb.setText("Supprimer ?");
+                
             }
-            public void mouseExited(MouseEvent evt)
-            {
+            public void mouseExited(MouseEvent evt) {
+                //setValuesParticipants(event);
+                System.out.println(event.getParticipants().length + " " + participants_JBu.size());
+                if (event.getParticipants().length  == participants_JBu.size()) {
                 jb.setText(event.getParticipants()[
                                     participants_JBu.indexOf(
                                         evt.getSource())].getNom() + " "
                             + event.getParticipants()[
                                     participants_JBu.indexOf(
                                         evt.getSource())].getPrenom());
-
+                } else {
+                    participants_JBu.remove(evt.getSource());
+                }
+                
             }
         });
             
@@ -481,7 +493,7 @@ public boolean trieEvenement() {
             }
         });
 
-        checkDelete.setText("Confirmer Suppression");
+        checkDelete.setText("Supprimer Evenement ?");
         checkDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkDeleteActionPerformed(evt);
@@ -596,7 +608,7 @@ public boolean trieEvenement() {
             .addGroup(panelEvtLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_infoEvt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panel_infoEvt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, Short.MAX_VALUE)
                     .addComponent(panel_currentDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
