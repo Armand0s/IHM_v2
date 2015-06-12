@@ -183,7 +183,7 @@ public class FenetreUI extends JFrame {
                 controleur.supprimerEvenement();
             }
         });
-        menu.add(menuEvenements[1]);
+        //menu.add(menuEvenements[1]);
         
         return menu;
     }    
@@ -193,7 +193,7 @@ public class FenetreUI extends JFrame {
      */
     public void afficher() {
         setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        setSize(600, 700);
+        setSize(620, 700);
         setVisible(true);   
         this.setResizable(false);
     }
@@ -262,15 +262,15 @@ public class FenetreUI extends JFrame {
             case MENU_CONTACTS:
                  setMenuEntryEnabled(MENU_CONTACTS, 0, enabled); // Créer contact
                  setMenuEntryEnabled(MENU_CONTACTS, 1, enabled & ( contactSelected)); // Supprimer contact
-                 setMenuEntryEnabled(MENU_CONTACTS, 2, enabled & ( contactSelected)); // Créer
-                 setMenuEntryEnabled(MENU_CONTACTS, 3, enabled & ( contactSelected));
-                 setMenuEntryEnabled(MENU_CONTACTS, 4, enabled &   (! contactSelected));
-                 setMenuEntryEnabled(MENU_CONTACTS, 5, enabled &    contactSelected);                 
+                 setMenuEntryEnabled(MENU_CONTACTS, 2, enabled & ( contactSelected)); // Ajouter à un groupe
+                 setMenuEntryEnabled(MENU_CONTACTS, 3, enabled); // Creer groupe
+                 setMenuEntryEnabled(MENU_CONTACTS, 4, enabled & (! contactSelected)); // Supprimer groupe
+                 //setMenuEntryEnabled(MENU_CONTACTS, 5, enabled &    contactSelected);                 
                  break;
 
             case MENU_EVENEMENTS:
                  setMenuEntryEnabled(MENU_EVENEMENTS, 0, enabled);
-                 setMenuEntryEnabled(MENU_EVENEMENTS, 1, enabled & evtSelected);
+                 //setMenuEntryEnabled(MENU_EVENEMENTS, 1, enabled );
                  setMenuEntryEnabled(MENU_EVENEMENTS, 2, enabled & evtSelected);
                  setMenuEntryEnabled(MENU_EVENEMENTS, 3, enabled & evtSelected);            
                  break;                
