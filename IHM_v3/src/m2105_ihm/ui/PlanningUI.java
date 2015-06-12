@@ -8,6 +8,8 @@ package m2105_ihm.ui;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -187,11 +189,47 @@ public boolean trieEvenement() {
     public boolean setValuesParticipants(Evenement event) {
         if (event == null) { return false; }
         
+        
         panel_listParticipants.removeAll();
+        participants_JBu.clear();
+        
+
         for(Contact c : event.getParticipants()) {
-            panel_listParticipants.add(new JLabel(c.getNom() + " " + c.getPrenom()));
+            participants_JBu.add(new JButton(c.getNom() + " " + c.getPrenom()));
         }
         
+        for (JButton jb : participants_JBu) {
+            jb.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PlanningUI.this.controleur.retirerParticipantEvenement(currentEvt.getParticipants()[(
+                                participants_JBu.indexOf(e.getSource()
+                                )
+                            )]);
+            }
+        });
+            jb.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                jb.setText("Supprimer ?");
+            }
+            public void mouseExited(MouseEvent evt)
+            {
+                jb.setText(event.getParticipants()[
+                                    participants_JBu.indexOf(
+                                        evt.getSource())].getNom() + " "
+                            + event.getParticipants()[
+                                    participants_JBu.indexOf(
+                                        evt.getSource())].getPrenom());
+
+            }
+        });
+            
+            
+    }
+    
+        for (JButton jb : participants_JBu) {
+            panel_listParticipants.add(jb);
+        }
         return true;
     }
         /*
@@ -669,5 +707,7 @@ public boolean trieEvenement() {
     private ArrayList<Evenement> next_Evt_Evt = new ArrayList<>();
     private ArrayList<JButton> next_Evt_JBu = new ArrayList<>();
     public int tempo = 0;
+    
+    private ArrayList<JButton> participants_JBu = new ArrayList<>();
 
 }
