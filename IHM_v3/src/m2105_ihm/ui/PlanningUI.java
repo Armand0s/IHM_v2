@@ -33,7 +33,7 @@ public class PlanningUI extends javax.swing.JPanel {
         this.controleur = controleur;
         
     
-            currentEvt = new Evenement("No evenement",
+            currentEvt = new Evenement("No Evenement Selected",
                     calendar.getDd(),
                     intToMonths(calendar.getMm()),
                     calendar.getYy()
