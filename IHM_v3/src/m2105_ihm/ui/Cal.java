@@ -140,7 +140,7 @@ public class Cal extends JPanel {
           // Surligne le jour selectionné
           setDayActive(Integer.parseInt(num));
           //System.out.println("Day : " + dd + " : " + mm  + " : " + yy);
-          dateSelected.setText("Day : " + dd + " : " + (mm + 1)  + " : " + yy);
+          dateSelected.setText(dd + " : " + (mm + 1)  + " : " + yy);
           frame.setDate_Evt_date_selected(dd,mm,yy);
           frame.setValuesList(frame.getCurrentEvt());
           frame.setValuesParticipants(frame.getCurrentEvt());
@@ -203,7 +203,7 @@ public class Cal extends JPanel {
  
     // Say we need to be drawn on the screen
     
-    dateSelected.setText("Day : " + dd + " : " + (mm + 1)  + " : " + yy);
+    dateSelected.setText(dd + " : " + (mm + 1)  + " : " + yy);
     
     
     repaint();
