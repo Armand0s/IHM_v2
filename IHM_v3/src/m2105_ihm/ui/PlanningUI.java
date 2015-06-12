@@ -32,12 +32,8 @@ public class PlanningUI extends javax.swing.JPanel {
     public PlanningUI(Controleur controleur) {
         this.controleur = controleur;
         
-    
-            currentEvt = new Evenement("No Evenement Selected",
-                    calendar.getDd(),
-                    intToMonths(calendar.getMm()),
-                    calendar.getYy()
-            );
+            
+            currentEvt = this.getDefaultEvt();
        // } else {
           //  currentEvt = evt_list.get(0);
         //}
@@ -51,6 +47,22 @@ public class PlanningUI extends javax.swing.JPanel {
 
     }
 
+    
+    public Evenement getDefaultEvt() {
+        return new Evenement("No Evenement Selected",
+                    calendar.getDd(),
+                    intToMonths(calendar.getMm()),
+                    calendar.getYy()
+            );
+    }
+    
+    
+    public void uncheckDelete() {
+        this.checkDelete.setSelected(false);
+        this.buttonDelete.setEnabled(false);
+    }
+    
+    
     public Mois intToMonths(int mois) {
             Mois mTmp;
         switch (mois) {
@@ -299,11 +311,13 @@ public boolean trieEvenement() {
         label_mois = new javax.swing.JLabel();
         label_annee = new javax.swing.JLabel();
         label_participants = new javax.swing.JLabel();
-        buttonValider = new javax.swing.JButton();
-        buttonAnnuler = new javax.swing.JButton();
         button_addParticipant = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         panel_listParticipants = new javax.swing.JPanel();
+        buttonDelete = new javax.swing.JButton();
+        checkDelete = new javax.swing.JCheckBox();
+        buttonValider = new javax.swing.JButton();
+        buttonAnnuler = new javax.swing.JButton();
 
         panel_listEvt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
@@ -316,19 +330,20 @@ public boolean trieEvenement() {
         panel_listEvt.setLayout(panel_listEvtLayout);
         panel_listEvtLayout.setHorizontalGroup(
             panel_listEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_listEvtLayout.createSequentialGroup()
+            .addComponent(jScrollPane1)
+            .addGroup(panel_listEvtLayout.createSequentialGroup()
+                .addGap(65, 65, 65)
                 .addComponent(label_evtASuivre)
-                .addGap(120, 120, 120))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         panel_listEvtLayout.setVerticalGroup(
             panel_listEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_listEvtLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(label_evtASuivre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
 
         panel_calendar.setLayout(new java.awt.BorderLayout());
@@ -339,11 +354,12 @@ public boolean trieEvenement() {
         PanelPlanning.setLayout(PanelPlanningLayout);
         PanelPlanningLayout.setHorizontalGroup(
             PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPlanningLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPlanningLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panel_calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_listEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(panel_listEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
         );
         PanelPlanningLayout.setVerticalGroup(
             PanelPlanningLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +375,7 @@ public boolean trieEvenement() {
 
         panel_currentDate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
-        label_CurrentDay.setText("Date Actuelle : "
+        label_CurrentDay.setText("Aujourd'hui: "
             + calendar_currentDate.get(Calendar.DAY_OF_MONTH) + " "
             + intToMonths(calendar_currentDate.get(Calendar.MONTH)).toString() + " "
             + calendar_currentDate.get(Calendar.YEAR));
@@ -370,7 +386,7 @@ public boolean trieEvenement() {
             panel_currentDateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_currentDateLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label_CurrentDay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label_CurrentDay, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panel_currentDateLayout.setVerticalGroup(
@@ -397,6 +413,11 @@ public boolean trieEvenement() {
             annee[i-1965] = Integer.toString(i);
         }
         combo_Annee.setModel(new javax.swing.DefaultComboBoxModel(annee));
+        combo_Annee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_AnneeActionPerformed(evt);
+            }
+        });
 
         text_nomEvt.setText("Nom Evt");
 
@@ -409,6 +430,31 @@ public boolean trieEvenement() {
         label_annee.setText("Année :");
 
         label_participants.setText("Participants :");
+
+        button_addParticipant.setText("Ajouter participant");
+        button_addParticipant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_addParticipantActionPerformed(evt);
+            }
+        });
+
+        panel_listParticipants.setLayout(new java.awt.GridLayout(20, 1));
+        jScrollPane2.setViewportView(panel_listParticipants);
+
+        buttonDelete.setText("Supprimer");
+        buttonDelete.setEnabled(false);
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
+
+        checkDelete.setText("Confirmer Suppression");
+        checkDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkDeleteActionPerformed(evt);
+            }
+        });
 
         buttonValider.setText("Valider");
         buttonValider.addActionListener(new java.awt.event.ActionListener() {
@@ -424,65 +470,52 @@ public boolean trieEvenement() {
             }
         });
 
-        button_addParticipant.setText("Ajouter participant");
-        button_addParticipant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_addParticipantActionPerformed(evt);
-            }
-        });
-
-        panel_listParticipants.setLayout(new java.awt.GridLayout(20, 1));
-        jScrollPane2.setViewportView(panel_listParticipants);
-
         javax.swing.GroupLayout panel_infoEvtLayout = new javax.swing.GroupLayout(panel_infoEvt);
         panel_infoEvt.setLayout(panel_infoEvtLayout);
         panel_infoEvtLayout.setHorizontalGroup(
             panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEvtLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(text_nomEvt))
+                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                .addComponent(label_annee)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                .addComponent(label_mois)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                                .addComponent(label_jour)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(labal_dateEvt)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                        .addComponent(buttonAnnuler, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonValider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEvtLayout.createSequentialGroup()
-                                .addComponent(label_nomEvt)
-                                .addGap(52, 52, 52))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_infoEvtLayout.createSequentialGroup()
-                                .addComponent(label_participants)
-                                .addGap(62, 62, 62))))
-                    .addComponent(button_addParticipant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonAnnuler)
+                        .addGap(2, 2, 2)
+                        .addComponent(buttonValider))
+                    .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(labal_dateEvt))
+                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(button_addParticipant, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                        .addComponent(label_mois)
+                                        .addGap(43, 43, 43)
+                                        .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                            .addComponent(label_annee)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                                            .addComponent(label_jour)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(text_nomEvt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                            .addGap(57, 57, 57)
+                            .addComponent(label_participants))
+                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                            .addGap(43, 43, 43)
+                            .addComponent(label_nomEvt))
+                        .addComponent(checkDelete)
+                        .addGroup(panel_infoEvtLayout.createSequentialGroup()
+                            .addGap(44, 44, 44)
+                            .addComponent(buttonDelete))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_infoEvtLayout.setVerticalGroup(
             panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -491,42 +524,46 @@ public boolean trieEvenement() {
                 .addComponent(label_nomEvt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(text_nomEvt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(labal_dateEvt)
-                .addGap(18, 18, 18)
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_jour))
-                .addGap(18, 18, 18)
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_mois))
-                .addGap(18, 18, 18)
-                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label_annee))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labal_dateEvt)
+                .addGap(10, 10, 10)
+                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_jour)
+                    .addComponent(combo_Jour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_mois)
+                    .addComponent(combo_Mois, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_annee)
+                    .addComponent(combo_Annee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addComponent(label_participants)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_addParticipant)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(checkDelete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_infoEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAnnuler)
-                    .addComponent(buttonValider))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonValider)
+                    .addComponent(buttonAnnuler))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout panelEvtLayout = new javax.swing.GroupLayout(panelEvt);
         panelEvt.setLayout(panelEvtLayout);
         panelEvtLayout.setHorizontalGroup(
             panelEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEvtLayout.createSequentialGroup()
+            .addGroup(panelEvtLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panel_infoEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel_currentDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelEvtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_infoEvt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(panel_currentDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelEvtLayout.setVerticalGroup(
@@ -536,7 +573,7 @@ public boolean trieEvenement() {
                 .addComponent(panel_currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panel_infoEvt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(179, 179, 179))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -544,10 +581,10 @@ public boolean trieEvenement() {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelPlanning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PanelPlanning, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelEvt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,12 +616,27 @@ public boolean trieEvenement() {
         setValuesParticipants(currentEvt);
     }//GEN-LAST:event_button_addParticipantActionPerformed
 
+    private void combo_AnneeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_AnneeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_AnneeActionPerformed
+
+    private void checkDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkDeleteActionPerformed
+       buttonDelete.setEnabled(checkDelete.isSelected());
+
+    }//GEN-LAST:event_checkDeleteActionPerformed
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        controleur.supprimerEvenement();
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPlanning;
     private javax.swing.JButton buttonAnnuler;
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonValider;
     private javax.swing.JButton button_addParticipant;
+    private javax.swing.JCheckBox checkDelete;
     private javax.swing.JComboBox combo_Annee;
     private javax.swing.JComboBox combo_Jour;
     private javax.swing.JComboBox combo_Mois;
