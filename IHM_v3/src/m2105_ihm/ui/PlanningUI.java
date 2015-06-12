@@ -313,6 +313,7 @@ public boolean trieEvenement() {
                 (Mois) combo_Mois.getSelectedItem(),
                 combo_Annee.getSelectedIndex()+1965);
 
+        setValuesList(event);
         return true;
     }
 
