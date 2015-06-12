@@ -116,6 +116,7 @@ public class Controleur {
         if (evt != null) {
             nf.addEvenement(evt);
             planningUI.setCurrentEvt(evt);
+            planningUI.setValuesList(planningUI.getCurrentEvt());
         }
         
     }
